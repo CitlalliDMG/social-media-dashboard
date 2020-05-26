@@ -3,6 +3,7 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
+  background: var(--background);
 }
 
 :root {
@@ -15,11 +16,13 @@ body {
   --instagram-2: hsl(329, 70%, 58%);
   --youtube: hsl(348, 97%, 39%);
   /* Light Theme */
-  --white: hsl(0, 0%, 100%);
-  --very-pale-blue: hsl(225, 100%, 98%);
-  --light-grayish-blue: hsl(227, 47%, 96%);
-  --dark-grayish-blue: hsl(228, 12%, 44%);
-  --very-dark-blue: hsl(230, 17%, 14%);
+  --background: hsl(0, 0%, 100%);
+  --header-background: hsl(225, 100%, 98%);
+  --card-background: hsl(227, 47%, 96%);
+  --text-light: hsl(228, 12%, 44%);
+  --text-dark: hsl(230, 17%, 14%);
+  --toggle-checked-1: hsl(210, 78%, 56%);
+  --toggle-checked-2: hsl(146, 68%, 55%);
 }
 
 .wrapper {
@@ -35,26 +38,84 @@ body {
 
 .header {
   padding: 2em;
-  background-color: var(--very-pale-blue);
+  background-color: var(--header-background);
   border-radius: 0 0 1em 1em;
 }
 
 .header h1 {
   font-size: 1.45em;
   margin: 0;
+  color: var(--text-dark);
 }
 
 .header-total {
   margin: 0.5em 0;
   font-size: 0.85em;
   font-weight: bold;
-  color: var(--dark-grayish-blue);
+  color: var(--text-light);
   padding-bottom: 1.5em;
-  border-bottom: 1px solid var(--dark-grayish-blue);
+  border-bottom: 1px solid var(--text-light);
 }
 
-.header-dark {
-  padding-bottom: 2em;
+.header-dark-mode {
+  padding: 1em 0 2em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dark-mode-title {
+  font-size: 0.85em;
+  font-weight: bold;
+  color: var(--text-light);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--text-light);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider::before{
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--card-background);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--text-light);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
 
 /* Top Cards */
@@ -67,7 +128,7 @@ body {
 .card {
   border-radius: 0.5em;
   overflow: hidden;
-  background: var(--light-grayish-blue);
+  background: var(--card-background);
   text-align: center;
 }
 
@@ -99,7 +160,7 @@ body {
   justify-content: center;
   font-weight: bold;
   font-size: 0.75em;
-  color: var(--dark-grayish-blue);
+  color: var(--text-light);
   padding-top: 1em;
 }
 
@@ -115,13 +176,14 @@ body {
   font-weight: bold;
   font-size: 50px;
   display: block;
+  color: var(--text-dark);
 }
 
 .card-followers-title {
   text-transform: uppercase;
   font-size: 0.8em;
   letter-spacing: 0.35em;
-  color: var(--dark-grayish-blue);
+  color: var(--text-light);
 }
 
 .card-today {
@@ -154,7 +216,7 @@ body {
 .overview-title {
   font-size: 1.45em;
   font-weight: 600;
-  color: var(--dark-grayish-blue);
+  color: var(--text-light);
 }
 
 .card-small {
@@ -162,14 +224,14 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-row-gap: 1em;
   padding: 1.5em;
-  background-color: var(--light-grayish-blue);
+  background-color: var(--card-background);
   border-radius: 0.5em;
 }
 
 .card-small-title {
   font-weight: 600;
   font-size: 0.9em;
-  color: var(--dark-grayish-blue);
+  color: var(--text-light);
   margin: 0;
 }
 
@@ -186,6 +248,7 @@ body {
   margin: 0;
   display: flex;
   line-height: 0.9;
+  color: var(--text-dark);
 }
 
 .card-small-percentage {
@@ -213,10 +276,11 @@ body {
   font-size: 11px;
   text-align: center;
   padding-bottom: 2em;
+  color: var(--text-light);
 }
 
 .attribution a {
-  color: hsl(228, 45%, 44%);
+  color: var(--text-dark);
 }
 
 @media screen and (min-width: 768px) {
@@ -228,6 +292,13 @@ body {
     max-width: 1440px;
     margin: auto;
   }
+  .header-total {
+    border: none;
+  }
+  .header-grid {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+  }
 }
 
 @media screen and (min-width: 992px) {
@@ -235,4 +306,49 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 1.5em;
   }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark Theme */
+    --background: hsl(230, 17%, 14%);
+    --header-background: hsl(232, 19%, 15%);
+    --card-background: hsl(228, 28%, 20%);
+    --text-light: hsl(228, 34%, 66%);
+    --text-dark: hsl(0, 0%, 100%);
+    --switch: linear-gradient(to right, var(--toggle-checked-1) 0%, var(--toggle-checked-2) 100%);
+  }
+  .slider {
+    background-image: var(--switch)
+  }
+  input:checked + .slider {
+    background-color: var(--card-background);
+  }
+}
+
+.dark-mode {
+  --background: hsl(230, 17%, 14%);
+  --header-background: hsl(232, 19%, 15%);
+  --card-background: hsl(228, 28%, 20%);
+  --text-light: hsl(228, 34%, 66%);
+  --text-dark: hsl(0, 0%, 100%);
+  --switch: linear-gradient(to right, var(--toggle-checked-1) 0%, var(--toggle-checked-2) 100%);
+}
+.slider.dark-mode{
+  background-image: var(--switch);
+}
+
+.light-mode {
+  --background: hsl(0, 0%, 100%);
+  --header-background: hsl(225, 100%, 98%);
+  --card-background: hsl(227, 47%, 96%);
+  --text-light: hsl(228, 12%, 44%);
+  --text-dark: hsl(230, 17%, 14%);
+  --toggle-checked-1: hsl(210, 78%, 56%);
+  --toggle-checked-2: hsl(146, 68%, 55%);
+  --switch: linear-gradient(to right, var(--toggle-checked-1) 0%, var(--toggle-checked-2) 100%);
+}
+.slider.light-mode{
+  background-image: none;
+  background-color: var(--text-light);
 }
