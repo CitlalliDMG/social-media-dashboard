@@ -61,6 +61,7 @@ body {
 
 .top-cards {
   margin-top: -2.5em;
+  padding: 0 30px
 }
 
 .card {
@@ -216,4 +217,22 @@ body {
 
 .attribution a {
   color: hsl(228, 45%, 44%);
+}
+
+@media screen and (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 1.5em;
+  }
+  .wrapper {
+    max-width: 1440px;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 1.5em;
+  }
 }
